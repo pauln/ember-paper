@@ -66,7 +66,6 @@
 @import './angular-material/core/style/variables';
 @import './angular-material/core/style/structure';
 @import './angular-material/core/style/typography';
-@import './angular-material/core/services/layout/layout.attributes';
 @import './angular-material/core/services/layout/layout.scss';
 
 // Component styles
@@ -138,6 +137,9 @@
 @import './angular-material/components/dialog/dialog-theme';
 
 @import './angular-material/components/virtualRepeat/virtual-repeater';
+
+@import './angular-material/components/chips/chips';
+@import './angular-material/components/chips/chips-theme';
 
 // Backports of features from future versions of angular-material-source to this version
 @import './backports/paper-input';

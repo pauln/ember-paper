@@ -40,7 +40,6 @@ module.exports = {
       'core/style/mixins.scss',
       'core/style/variables.scss',
       'core/style/structure.scss',
-      'core/services/layout/layout.attributes.scss',
       'core/services/layout/layout.scss',
       //component styles
       'components/content/content.scss',
@@ -110,7 +109,10 @@ module.exports = {
       'components/dialog/dialog.scss',
       'components/dialog/dialog-theme.scss',
 
-      'components/virtualRepeat/virtual-repeater.scss'
+      'components/virtualRepeat/virtual-repeater.scss',
+
+      'components/chips/chips.scss',
+      'components/chips/chips-theme.scss'
     ];
 
     var angularScssFiles = new Funnel(this.pathBase(), {
