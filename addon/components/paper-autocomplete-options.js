@@ -12,6 +12,6 @@ export default PowerOptions.extend({
     for (let i = 1; i < parts.length; i++) {
       option = option.options[parseInt(parts[i], 10)];
     }
-    return option !== undefined ? get(option, 'raw') : option;
+    return option; // !== undefined ? get(option, 'raw') : option;
   }
 });
