@@ -20,7 +20,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
   classNameBindings: ['horizontal:md-orient-horizontal'],
   rawVisibleItems: computed.mapBy('visibleItems', 'raw'),
   containerSelector: undefined,
-
+  cache: {},
   actions: {
     onScroll(e) {
       this.eventHandlers.scroll.call(this, e);
@@ -49,7 +49,15 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     }
     return this.get('size');
   }),
+  init() {
+    this._super(...arguments);
+    this.set('cache', {});
+  },
 
+  willDestroy() {
+    this._super(...arguments);
+    this.set('cache', {});
+  },
   // Received coordinates {top, left, right, width} from the dropdown
   // Convert them to style and cache - they usually don't change
   positionStyle: computed('positionCoordinates', function() {
@@ -193,6 +201,26 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     return Math.min(totalItemsCount, _startAt + _visibleItemCount);
 
   }).readOnly(),
+
+  filteredItems: computed.filter('_items', function(item, index, items) {
+    let startAt = get(this, '_startAt');
+    let _visibleItemCount = get(this, '_visibleItemCount');
+    let itemsLength = get(this, 'totalItemsCount') || get(items, 'length');
+    let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
+    return index <= endAt && index >= startAt;
+  }).property('_items', '_startAt', '_visibleItemCount'),
+
+  mappedItems: computed.map('filteredItems', function(item, index) {
+    let startAt = this.get('_startAt');
+    let cache = this.get('cache');
+    let cached = cache[`${ JSON.stringify(item) }:${ (startAt + index) }`];
+    if (!cached) {
+      console.log('CACHE MISS');
+      cached = { raw: item, actualIndex: startAt + index };
+      cache[`${ JSON.stringify(item) }:${ (startAt + index) }`] = cached;
+    }
+    return cached;
+  }),
 
   visibleItems: computed('_startAt', '_visibleItemCount', '_items', function() {
 
