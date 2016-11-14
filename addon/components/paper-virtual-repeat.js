@@ -207,7 +207,7 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     let _visibleItemCount = get(this, '_visibleItemCount');
     let itemsLength = get(this, 'totalItemsCount') || get(items, 'length');
     let endAt = Math.min(itemsLength, startAt + _visibleItemCount);
-    return index <= endAt && index >= startAt;
+    return index < endAt && index >= startAt;
   }).property('_items', '_startAt', '_visibleItemCount'),
 
   mappedItems: computed.map('filteredItems', function(item, index) {
@@ -215,7 +215,6 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     let cache = this.get('cache');
     let cached = cache[`${ JSON.stringify(item) }:${ (startAt + index) }`];
     if (!cached) {
-      console.log('CACHE MISS');
       cached = { raw: item, actualIndex: startAt + index };
       cache[`${ JSON.stringify(item) }:${ (startAt + index) }`] = cached;
     }
