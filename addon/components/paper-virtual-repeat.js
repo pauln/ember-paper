@@ -48,7 +48,6 @@ const VirtualRepeatComponent = VirtualEachComponent.extend({
     }
     return this.get('size');
   }),
-
   // Received coordinates {top, left, right, width} from the dropdown
   // Convert them to style and cache - they usually don't change
   positionStyle: computed('positionCoordinates', function() {
