@@ -1,4 +1,4 @@
-{{#each virtualOptions as |opt|}}
+{{#each virtualOptions key="actualIndex" as |opt|}}
   <li class="ember-power-select-option {{if (eq opt.raw select.highlighted) 'selected'}}"
     aria-selected="{{ember-power-select-is-selected opt.raw select.selected}}"
     aria-disabled={{ember-power-select-true-string-if-present opt.disabled}}
